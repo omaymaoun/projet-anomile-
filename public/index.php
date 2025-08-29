@@ -1,5 +1,8 @@
 <?php
 
+// Définir le fuseau horaire pour utiliser l'heure locale de l'ordinateur
+date_default_timezone_set('Africa/Tunis');
+
 use App\Kernel;
 
 require_once dirname(__DIR__).'/vendor/autoload_runtime.php';
