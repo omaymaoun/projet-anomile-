@@ -1,0 +1,105 @@
+{% extends 'base-back.html.twig' %}
+
+{% block title %}Détails du technicien{% endblock %}
+
+{% block stylesheets %}
+<style>
+    .btn-custom {
+        padding: 0.6rem 1.2rem;
+        font-size: 0.95rem;
+        border-radius: 0.5rem;
+        transition: all 0.2s ease-in-out;
+    }
+
+    .btn-custom i {
+        margin-right: 0.4rem;
+    }
+
+    .btn-warning {
+        background-color: #f0ad4e;
+        border-color: #f0ad4e;
+        color: white;
+    }
+
+    .btn-warning:hover {
+        background-color: #ec971f;
+        border-color: #ec971f;
+    }
+
+    .btn-danger {
+        background-color: #d9534f;
+        border-color: #d43f3a;
+        color: white;
+    }
+
+    .btn-danger:hover {
+        background-color: #c9302c;
+        border-color: #ac2925;
+    }
+
+    .btn-outline-secondary {
+        border-radius: 0.5rem;
+    }
+
+    .card-header h4 {
+        font-weight: 600;
+        font-size: 1.2rem;
+    }
+</style>
+{% endblock %}
+
+{% block body %}
+<div class="container py-5">
+    <div class="row justify-content-center">
+        <div class="col-lg-8">
+
+            <div class="card shadow-lg border-0 rounded-4">
+                <div class="card-header bg-primary text-white">
+                    <h4 class="mb-0">
+                        <i class="bi bi-person-circle me-2"></i>Détails du technicien
+                    </h4>
+                </div>
+
+                <div class="card-body">
+                    <table class="table table-striped">
+                        <tbody>
+                            <tr>
+                                <th class="text-primary">Prénom</th>
+                                <td>{{ technicien.prenom }}</td>
+                            </tr>
+                            <tr>
+                                <th class="text-primary">Nom</th>
+                                <td>{{ technicien.nom }}</td>
+                            </tr>
+                            <tr>
+                                <th class="text-primary">Email</th>
+                                <td>{{ technicien.email }}</td>
+                            </tr>
+                            <tr>
+                                <th class="text-primary">Téléphone</th>
+                                <td>{{ technicien.telephone }}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="card-footer d-flex flex-column flex-md-row justify-content-between align-items-center gap-3">
+                    <a href="{{ path('app_technicien_index') }}" class="btn btn-outline-secondary btn-custom">
+                        <i class="bi bi-arrow-left"></i>Retour
+                    </a>
+                    <div class="d-flex flex-column flex-md-row gap-2">
+                        <a href="{{ path('app_technicien_edit', {'id': technicien.id}) }}" class="btn btn-warning btn-custom">
+                            <i class="bi bi-pencil-square"></i>Modifier
+                        </a>
+                        <div>
+                            {{ include('technicien/_delete_form.html.twig', { 'button_class': 'btn btn-danger btn-custom' }) }}
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+</div>
+{% endblock %}

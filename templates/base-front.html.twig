@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en" data-textdirection="ltr">
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimal-ui" />
+    <title>{% block title %}Dashboard eCommerce - Stack Admin{% endblock %}</title>
+
+    <link rel="apple-touch-icon" href="../../../app-assets/images/ico/apple-icon-120.png" />
+    <link rel="shortcut icon" type="image/x-icon" href="../../../app-assets/images/ico/favicon.ico" />
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:300,400,500|Open+Sans:300,400,600,700" rel="stylesheet" />
+
+    <!-- Vendor CSS -->
+    <link rel="stylesheet" href="../../../app-assets/vendors/css/vendors.min.css" />
+    <link rel="stylesheet" href="../../../app-assets/vendors/css/extensions/unslider.css" />
+    <link rel="stylesheet" href="../../../app-assets/vendors/css/weather-icons/climacons.min.css" />
+    <link rel="stylesheet" href="../../../app-assets/fonts/meteocons/style.css" />
+    <link rel="stylesheet" href="../../../app-assets/vendors/css/charts/morris.css" />
+
+    <!-- Theme CSS -->
+    <link rel="stylesheet" href="../../../app-assets/css/bootstrap.css" />
+    <link rel="stylesheet" href="../../../app-assets/css/bootstrap-extended.css" />
+    <link rel="stylesheet" href="../../../app-assets/css/colors.css" />
+    <link rel="stylesheet" href="../../../app-assets/css/components.css" />
+
+    <!-- Page CSS -->
+    <link rel="stylesheet" href="../../../app-assets/css/core/menu/menu-types/horizontal-menu.css" />
+    <link rel="stylesheet" href="../../../app-assets/css/core/colors/palette-gradient.css" />
+    <link rel="stylesheet" href="../../../app-assets/fonts/simple-line-icons/style.css" />
+    <link rel="stylesheet" href="../../../app-assets/css/pages/timeline.css" />
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="../../../assets/css/style.css" />
+
+    {% block stylesheets %}{% endblock %}
+</head>
+<body class="horizontal-layout horizontal-menu 2-columns" data-open="click" data-menu="horizontal-menu" data-col="2-columns">
+
+    <!-- BEGIN: Header -->
+    <nav class="header-navbar navbar-expand-md navbar navbar-with-menu navbar-static-top navbar-dark bg-gradient-x-grey-blue navbar-border navbar-brand-center">
+        <div class="navbar-wrapper">
+            <div class="navbar-header">
+                <ul class="nav navbar-nav flex-row">
+                    <li class="nav-item mobile-menu d-md-none mr-auto">
+                        <a class="nav-link nav-menu-main menu-toggle hidden-xs" href="#"><i class="ft-menu font-large-1"></i></a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="navbar-brand" href="../../../html/ltr/horizontal-menu-template-nav/index.html">
+                            <img class="brand-logo" alt="stack admin logo" src="../../../app-assets/images/logo/stack-logo-light.png" />
+                            <h2 class="brand-text">Stack</h2>
+                        </a>
+                    </li>
+                    <li class="nav-item d-md-none">
+                        <a class="nav-link open-navbar-container" data-toggle="collapse" data-target="#navbar-mobile">
+                            <i class="fa fa-ellipsis-v"></i>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+
+            <!-- Nav right menu -->
+            <div class="navbar-container">
+                <ul class="nav navbar-nav float-right">
+                    <!-- Language dropdown -->
+                    <!-- User dropdown -->
+                    
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <!-- END: Header -->
+
+    <!-- BEGIN: Main Menu -->
+    <div class="main-menu menu-fixed menu-light menu-accordion menu-shadow">
+        <!-- Menu content here -->
+    </div>
+    <!-- END: Main Menu -->
+
+    <!-- BEGIN: Content -->
+    <div class="app-content content">
+        <div class="content-wrapper">
+            <div class="content-body">
+                {% block body %}
+                {# Le contenu spécifique de chaque page, par exemple ton formulaire, sera injecté ici #}
+                {% endblock %}
+            </div>
+        </div>
+    </div>
+    <!-- END: Content -->
+    <!-- BEGIN: Footer -->
+    <footer class="footer footer-static footer-light">
+        <p class="clearfix text-muted text-sm-center px-2">
+            <span>© 2025 Stack Admin Template by PIXINVENT</span>
+        </p>
+    </footer>
+    <!-- END: Footer -->
+
+    <!-- Vendor JS -->
+    <script src="../../../app-assets/vendors/js/vendors.min.js"></script>
+
+    <!-- Theme JS -->
+    <script src="../../../app-assets/js/core/app-menu.js"></script>
+    <script src="../../../app-assets/js/core/app.js"></script>
+
+    {% block javascripts %}{% endblock %}
+</body>
+</html>

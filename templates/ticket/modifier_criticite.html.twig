@@ -1,0 +1,125 @@
+{% extends 'base-back.html.twig' %}
+
+{% block title %}Modifier Criticité - Ticket #{{ ticket.id }}{% endblock %}
+
+{% block stylesheets %}
+<style>
+    body {
+        background: #eef2f7;
+        font-family: 'Inter', sans-serif;
+    }
+
+    .form-container {
+        max-width: 520px;
+        margin: 5rem auto;
+        background: #fff;
+        padding: 2.5rem 3rem;
+        border-radius: 18px;
+        box-shadow: 0 12px 25px rgba(0, 0, 0, 0.12);
+        transition: all 0.3s ease;
+    }
+
+    .form-container:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 15px 35px rgba(0, 0, 0, 0.18);
+    }
+
+    .form-container h1 {
+        font-weight: 700;
+        font-size: 1.9rem;
+        color: #0B1F51;
+        margin-bottom: 2rem;
+        text-align: center;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 0.5rem;
+    }
+
+    label {
+        font-weight: 600;
+        color: #0B1F51;
+        margin-bottom: 0.5rem;
+    }
+
+    select.form-control {
+        width: 100%;
+        padding: 0.85rem 1rem;
+        border-radius: 12px;
+        border: 1.5px solid #dbe3ef;
+        background-color: #f7faff;
+        font-size: 1rem;
+        transition: all 0.3s ease;
+    }
+
+    select.form-control:focus {
+        border-color: #0B1F51;
+        box-shadow: 0 0 12px rgba(11, 31, 81, 0.2);
+        outline: none;
+    }
+
+    .btn-submit {
+        width: 100%;
+        padding: 1rem;
+        font-size: 1.1rem;
+        font-weight: 600;
+        background: linear-gradient(90deg, #0B1F51 0%, #1e3c72 100%);
+        color: #fff;
+        border: none;
+        border-radius: 12px;
+        cursor: pointer;
+        margin-top: 1.8rem;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 10px;
+        transition: all 0.3s ease;
+    }
+
+    .btn-submit:hover {
+        background: linear-gradient(90deg, #1e3c72 0%, #0B1F51 100%);
+        transform: translateY(-2px);
+        box-shadow: 0 8px 20px rgba(11, 31, 81, 0.3);
+    }
+
+    .btn-back {
+        display: inline-block;
+        margin-bottom: 1.5rem;
+        color: #0B1F51;
+        font-weight: 500;
+        text-decoration: none;
+        transition: all 0.2s ease;
+    }
+
+    .btn-back:hover {
+        color: #1e3c72;
+        text-decoration: underline;
+    }
+</style>
+{% endblock %}
+
+{% block body %}
+<div class="form-container">
+
+   
+
+    <h1>
+        <i class="bi bi-exclamation-circle-fill"></i> Modifier Criticité
+        <span style="font-size: 0.85rem; font-weight: 400; color: #6c757d;">#{{ ticket.id }}</span>
+    </h1>
+
+    {{ form_start(form, {'attr': {'novalidate': 'novalidate'}}) }}
+        <div class="mb-3">
+            {{ form_label(form.criticite) }}
+            {{ form_widget(form.criticite, {'attr': {'class': 'form-control'}}) }}
+            {% if form.criticite.vars.errors|length > 0 %}
+                <div class="text-danger mt-1">{{ form_errors(form.criticite) }}</div>
+            {% endif %}
+        </div>
+
+        <button type="submit" class="btn-submit">
+            <i class="bi bi-check-circle"></i> Enregistrer
+        </button>
+    {{ form_end(form) }}
+</div>
+{% endblock %}

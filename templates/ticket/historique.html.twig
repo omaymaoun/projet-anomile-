@@ -1,0 +1,45 @@
+{% extends 'base-back.html.twig' %}
+
+{% block body %}
+<h1 class="mb-4">Historique des Tickets</h1>
+
+<div class="card shadow-sm">
+    <div class="card-body">
+        <table class="table table-hover table-striped align-middle">
+            <thead class="bg-white text-dark"> {# Changement ici #}
+                <tr>
+                    <th scope="col">Ticket #</th>
+                    <th scope="col">Action</th>
+                    <th scope="col">Détails</th>
+                    <th scope="col">Utilisateur</th>
+                    <th scope="col">Date</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for historique in historiques %}
+                    <tr>
+                        <td>#{{ historique.ticket.id }}</td>
+                        <td>
+                            <span class="badge 
+                                {% if historique.action == 'Création' %} bg-primary
+                                {% elseif historique.action == 'Clôture' %} bg-success
+                                {% elseif historique.action == 'Affectation Ticket' %} bg-warning text-dark
+                                {% elseif historique.action == 'Modification' %} bg-info text-dark
+                                {% else %} bg-secondary {% endif %}">
+                                {{ historique.action }}
+                            </span>
+                        </td>
+                        <td>{{ historique.details|default('—') }}</td>
+                        <td>{{ historique.utilisateur.username }}</td>
+                        <td>{{ historique.dateAction|date('d/m/Y H:i') }}</td>
+                    </tr>
+                {% else %}
+                    <tr>
+                        <td colspan="5" class="text-center text-muted">Aucun historique trouvé</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}

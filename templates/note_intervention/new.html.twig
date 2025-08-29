@@ -1,0 +1,132 @@
+{% extends 'base-front.html.twig' %}
+
+{% block title %}Créer une note d'intervention{% endblock %}
+
+{% block stylesheets %}
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap');
+
+  body {
+    background: #f0f2f8;
+    font-family: 'Inter', sans-serif;
+  }
+
+  .custom-form-container {
+    max-width: 640px;
+    margin: 4rem auto;
+    background: #ffffff;
+    padding: 3rem 3.5rem;
+    border-radius: 18px;
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.07);
+  }
+
+  .custom-form-container h1 {
+    font-weight: 700;
+    font-size: 2.4rem;
+    color: #0B1F51;
+    margin-bottom: 2.5rem;
+    text-align: center;
+  }
+
+  label {
+    display: block;
+    font-weight: 600;
+    color: #0B1F51;
+    margin-bottom: 0.5rem;
+    font-size: 1rem;
+  }
+
+  .form-control {
+    width: 100%;
+    padding: 1rem 1.2rem;
+    font-size: 1rem;
+    border-radius: 12px;
+    border: 1.5px solid #dbe3ef;
+    background-color: #f7faff;
+    transition: all 0.3s ease;
+    resize: vertical;
+    box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.03);
+  }
+
+  .form-control:focus {
+    border-color: #0B1F51;
+    background-color: #fff;
+    box-shadow: 0 0 10px rgba(11, 31, 81, 0.2);
+    outline: none;
+  }
+
+  .text-danger {
+    font-size: 0.85rem;
+    margin-top: 0.4rem;
+    font-weight: 500;
+    color: #e53935;
+  }
+
+  .btn-submit {
+    width: 100%;
+    padding: 1.1rem;
+    font-size: 1.15rem;
+    font-weight: 600;
+    background: linear-gradient(90deg, #0B1F51 0%, #1e3c72 100%);
+    color: #fff;
+    border: none;
+    border-radius: 14px;
+    cursor: pointer;
+    box-shadow: 0 6px 18px rgba(11, 31, 81, 0.3);
+    transition: background 0.3s ease, transform 0.2s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+  }
+
+  .btn-submit:hover {
+    background: linear-gradient(90deg, #1e3c72 0%, #0B1F51 100%);
+    transform: translateY(-2px);
+    box-shadow: 0 10px 25px rgba(11, 31, 81, 0.4);
+  }
+
+  .btn-submit i {
+    font-size: 1.4rem;
+  }
+
+  input[type="file"].form-control {
+    padding: 0.7rem 1rem;
+    background-color: #f7faff;
+    border-radius: 12px;
+    border: 1.5px solid #dbe3ef;
+  }
+</style>
+{% endblock %}
+
+{% block body %}
+  {{ form_start(form, {'attr': {'enctype': 'multipart/form-data', 'novalidate': 'novalidate'}}) }}
+  <div class="custom-form-container">
+
+    <h1>Créer une note d'intervention</h1>
+
+    <div class="mb-4">
+      {{ form_label(form.contenu) }}
+      {{ form_widget(form.contenu, {'attr': {'class': 'form-control', 'placeholder': 'Détaillez l\'intervention…'}}) }}
+      {% if form.contenu.vars.errors|length > 0 %}
+        <div class="text-danger">{{ form_errors(form.contenu) }}</div>
+      {% endif %}
+    </div>
+
+    <div class="mb-4">
+      {{ form_label(form.photo) }}
+      {{ form_widget(form.photo, {'attr': {'class': 'form-control'}}) }}
+      {% if form.photo.vars.errors|length > 0 %}
+        <div class="text-danger">{{ form_errors(form.photo) }}</div>
+      {% endif %}
+    </div>
+
+    <button type="submit" class="btn-submit">
+      <i class="bi bi-save2-fill"></i> Enregistrer
+    </button>
+
+  </div>
+  {{ form_end(form) }}
+{% endblock %}

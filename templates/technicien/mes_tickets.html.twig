@@ -1,0 +1,60 @@
+{% extends 'profile.html.twig' %}
+
+{% block title %}Mes Tickets{% endblock %}
+
+{% block body %}
+    <div style="padding: 20px;">
+        <h2 style="margin-bottom: 20px;">📋 Mes Tickets de Panne</h2>
+
+        {% if tickets is empty %}
+            <div style="padding: 10px; background-color: #f8d7da; color: #721c24; border-radius: 5px;">
+                Aucun ticket de panne trouvé.
+            </div>
+        {% else %}
+            <table style="width: 100%; border-collapse: collapse; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
+                <thead>
+                    <tr style="background-color: #f0f0f0;">
+                        <th style="padding: 10px; border: 1px solid #ddd;">Titre</th>
+                        <th style="padding: 10px; border: 1px solid #ddd;">Description</th>
+                        <th style="padding: 10px; border: 1px solid #ddd;">Date</th>
+                        <th style="padding: 10px; border: 1px solid #ddd;">Statut</th>
+                        <th style="padding: 10px; border: 1px solid #ddd;">Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for ticket in tickets %}
+                        <tr>
+                            <td style="padding: 10px; border: 1px solid #eee;">{{ ticket.titre }}</td>
+                            <td style="padding: 10px; border: 1px solid #eee;">{{ ticket.description }}</td>
+                            <td style="padding: 10px; border: 1px solid #eee;">{{ ticket.date ? ticket.date|date('d/m/Y') : '' }}</td>
+                            <td style="padding: 10px; border: 1px solid #eee;">
+                                {% if ticket.statut == 'en cours' %}
+                                    <span style="color: orange;">🟠 En cours</span>
+                                {% elseif ticket.statut == 'terminé' %}
+                                    <span style="color: green;">🟢 terminé</span>
+                                {% else %}
+                                    <span style="color: red;">🔴 {{ ticket.statut }}</span>
+                                {% endif %}
+                            </td>
+                            <td style="padding: 10px; border: 1px solid #eee;">
+                             <a href="{{ path('note_intervention_new', {'id': ticket.id}) }}" 
+
+                                   style="background-color: #4CAF50; 
+                                          color: white; 
+                                          padding: 6px 12px; 
+                                          text-align: center; 
+                                          text-decoration: none; 
+                                          display: inline-block; 
+                                          border-radius: 4px;
+                                          border: none;
+                                          cursor: pointer;">
+                                    Ajouter une note
+                                </a>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        {% endif %}
+    </div>
+{% endblock %}

@@ -1,0 +1,180 @@
+{% extends 'base-front.html.twig' %}
+
+{% block title %}Assigner  un technicien{% endblock %}
+
+{% block stylesheets %}
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap');
+
+  body {
+    background: #f0f2f8;
+    font-family: 'Inter', sans-serif;
+  }
+
+  .custom-form-container {
+    max-width: 800px;
+    margin: 4rem auto;
+    background: #ffffff;
+    padding: 3rem 3.5rem;
+    border-radius: 18px;
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.07);
+    transition: all 0.3s ease;
+  }
+
+  .custom-form-container h1 {
+    font-weight: 700;
+    font-size: 2.4rem;
+    color: #0B1F51;
+    margin-bottom: 2.5rem;
+    text-align: center;
+  }
+
+  label {
+    display: block;
+    font-weight: 600;
+    color: #0B1F51;
+    margin-bottom: 0.5rem;
+    font-size: 1rem;
+  }
+
+  .form-group {
+    margin-bottom: 1.5rem;
+  }
+
+  .form-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5rem;
+  }
+
+  @media (max-width: 768px) {
+    .form-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .custom-form-container {
+      padding: 2rem 1.5rem;
+      margin: 2rem 1rem;
+    }
+  }
+
+  input.form-control,
+  textarea.form-control,
+  select.form-control {
+    width: 100%;
+    padding: 1rem 1.2rem;
+    font-size: 1rem;
+    border-radius: 12px;
+    border: 1.5px solid #dbe3ef;
+    background-color: #f7faff;
+    transition: all 0.3s ease;
+    font-family: inherit;
+    resize: vertical;
+    box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.03);
+  }
+
+  input.form-control:focus,
+  textarea.form-control:focus,
+  select.form-control:focus {
+    border-color: #0B1F51;
+    background-color: #fff;
+    box-shadow: 0 0 10px rgba(11, 31, 81, 0.2);
+    outline: none;
+  }
+
+  .text-danger {
+    font-size: 0.85rem;
+    margin-top: 0.4rem;
+    font-weight: 500;
+    color: #e53935;
+  }
+
+  .btn-submit {
+    width: 100%;
+    padding: 1.1rem;
+    font-size: 1.15rem;
+    font-weight: 600;
+    background: linear-gradient(90deg, #0B1F51 0%, #1e3c72 100%);
+    color: #fff;
+    border: none;
+    border-radius: 14px;
+    cursor: pointer;
+    box-shadow: 0 6px 18px rgba(11, 31, 81, 0.3);
+    transition: background 0.3s ease, transform 0.2s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+  }
+
+  .btn-submit:hover {
+    background: linear-gradient(90deg, #1e3c72 0%, #0B1F51 100%);
+    transform: translateY(-2px);
+    box-shadow: 0 10px 25px rgba(11, 31, 81, 0.4);
+  }
+
+  .btn-submit i {
+    font-size: 1.4rem;
+  }
+</style>
+{% endblock %}
+
+{% block body %}
+{{ form_start(form, {'attr': {'novalidate': 'novalidate', 'autocomplete': 'off'}}) }}
+<div class="custom-form-container">
+  <h1>Créer un nouveau Technicien</h1>
+
+  {# Flash messages #}
+  {% for label, messages in app.flashes %}
+    {% for message in messages %}
+      <div class="alert alert-{{ label }} alert-dismissible fade show" role="alert">
+        {{ message }}
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Fermer"></button>
+      </div>
+    {% endfor %}
+  {% endfor %}
+
+  <div class="form-grid">
+
+    <div class="form-group">
+      {{ form_label(form.nom) }}
+      {{ form_widget(form.nom, {'attr': {'class': 'form-control', 'placeholder': 'Nom'}}) }}
+      {% if form.nom.vars.errors|length > 0 %}
+        <div class="text-danger">{{ form_errors(form.nom) }}</div>
+      {% endif %}
+    </div>
+
+    <div class="form-group">
+      {{ form_label(form.prenom) }}
+      {{ form_widget(form.prenom, {'attr': {'class': 'form-control', 'placeholder': 'Prénom'}}) }}
+      {% if form.prenom.vars.errors|length > 0 %}
+        <div class="text-danger">{{ form_errors(form.prenom) }}</div>
+      {% endif %}
+    </div>
+
+    <div class="form-group">
+      {{ form_label(form.email) }}
+      {{ form_widget(form.email, {'attr': {'class': 'form-control', 'placeholder': 'Email'}}) }}
+      {% if form.email.vars.errors|length > 0 %}
+        <div class="text-danger">{{ form_errors(form.email) }}</div>
+      {% endif %}
+    </div>
+
+    <div class="form-group">
+      {{ form_label(form.telephone) }}
+      {{ form_widget(form.telephone, {'attr': {'class': 'form-control', 'placeholder': 'Téléphone'}}) }}
+      {% if form.telephone.vars.errors|length > 0 %}
+        <div class="text-danger">{{ form_errors(form.telephone) }}</div>
+      {% endif %}
+    </div>
+
+  </div>
+
+  <button type="submit" class="btn-submit mt-4">
+    <i class="bi bi-person-plus-fill"></i> Enregistrer
+  </button>
+</div>
+{{ form_end(form) }}
+{% endblock %}

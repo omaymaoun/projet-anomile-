@@ -1,0 +1,124 @@
+{% extends 'base-back.html.twig' %}
+
+{% block title %}Tickets et Techniciens{% endblock %}
+
+{% block stylesheets %}
+<style>
+    body {
+        background-color: #f8f9fc;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    h2 {
+        margin-bottom: 2rem;
+        font-weight: 700;
+        color: #343a40;
+    }
+
+    .table-responsive {
+        border-radius: 0.75rem;
+        overflow: hidden;
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.06);
+        background-color: white;
+    }
+
+    .table-custom thead {
+        background-color: #0d6efd;
+        color: white;
+        font-weight: 600;
+    }
+
+    .table-custom tbody tr:hover {
+        background-color: #f1f5ff;
+        transition: background-color 0.3s ease-in-out;
+    }
+
+    .badge-technicien {
+        background: linear-gradient(45deg, #0d6efd, #3b82f6);
+        color: white;
+        padding: 0.4rem 0.75rem;
+        border-radius: 1rem;
+        font-size: 0.85rem;
+        font-weight: 500;
+    }
+
+    .text-muted {
+        color: #6c757d !important;
+    }
+
+    td, th {
+        vertical-align: middle !important;
+        text-align: center;
+    }
+
+    @media (max-width: 768px) {
+        .table-custom thead {
+            display: none;
+        }
+
+        .table-custom tbody td {
+            display: block;
+            text-align: left;
+            padding-left: 50%;
+            position: relative;
+        }
+
+        .table-custom tbody td::before {
+            content: attr(data-label);
+            position: absolute;
+            left: 1rem;
+            top: 0.75rem;
+            font-weight: bold;
+            color: #495057;
+        }
+
+        .table-custom tbody tr {
+            margin-bottom: 1rem;
+            display: block;
+            border-bottom: 1px solid #dee2e6;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+        }
+    }
+</style>
+{% endblock %}
+
+{% block body %}
+<div class="container mt-5">
+    <h2 class="text-center">Tickets avec Techniciens</h2>
+
+    <div class="table-responsive">
+        <table class="table table-hover table-custom">
+            <thead>
+                <tr>
+                    <th>Titre</th>
+                    <th>Description</th>
+                    <th>Technicien</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for ticket in tickets %}
+                    <tr>
+                        <td data-label="Titre">{{ ticket.titre }}</td>
+                        <td data-label="Description">
+                            {{ ticket.description|length > 80 ? ticket.description|slice(0, 80) ~ '...' : ticket.description }}
+                        </td>
+                        <td data-label="Technicien">
+                            {% if ticket.technicien %}
+                                <span class="badge-technicien">
+                                    {{ ticket.technicien.nom }} {{ ticket.technicien.prenom }}
+                                </span>
+                            {% else %}
+                                <span class="text-muted"><em>Non assigné</em></span>
+                            {% endif %}
+                        </td>
+                    </tr>
+                {% else %}
+                    <tr>
+                        <td colspan="3" class="text-center text-muted">Aucun ticket trouvé.</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,16 @@
+{% extends 'base-front.html.twig' %}
+
+{% block title %}{{ form.vars.value.id ? 'Modifier' : 'Créer' }} un utilisateur{% endblock %}
+
+{% block body %}
+<h1>{{ form.vars.value.id ? 'Modifier' : 'Créer' }} un utilisateur</h1>
+
+{{ form_start(form) }}
+    {{ form_row(form.username) }}
+    {{ form_row(form.roles) }}
+    {{ form_row(form.plainPassword) }}
+    <button class="btn btn-success">{{ form.vars.value.id ? 'Modifier' : 'Créer' }}</button>
+{{ form_end(form) }}
+
+<a href="{{ path('user_list') }}">Retour à la liste</a>
+{% endblock %}

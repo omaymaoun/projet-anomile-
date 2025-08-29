@@ -1,0 +1,75 @@
+{% extends 'base-back.html.twig' %}
+
+{% block title %}Modifier un technicien{% endblock %}
+
+{% block stylesheets %}
+<style>
+
+    /* Style bouton cohérent avec show */
+    .btn-custom {
+        padding: 0.4rem 1rem;
+        font-size: 0.9rem;
+        border-radius: 0.5rem;
+        transition: all 0.2s ease-in-out;
+    }
+    .btn-custom i {
+        margin-right: 0.4rem;
+    }
+    /* Bouton retour - style show */
+    .btn-return {
+        background-color: #ffffff;
+        border: 1px solid #dee2e6;
+        color: #333;
+    }
+    .btn-return:hover {
+        background-color: #f8f9fa;
+        color: #000;
+    }
+    /* Bouton modifier (jaune) */
+    .btn-warning {
+        padding: 0.4rem 1rem;
+        font-size: 0.9rem;
+        border-radius: 0.5rem;
+    }
+    /* Bouton supprimer rouge */
+    .btn-danger {
+        padding: 0.4rem 1rem;
+        font-size: 0.9rem;
+        border-radius: 0.5rem;
+    }
+    /* Header */
+    .card-header h4 {
+        font-weight: 600;
+        font-size: 1.25rem;
+    }
+</style>
+{% endblock %}
+
+{% block body %}
+<div class="container py-5">
+    <div class="row justify-content-center">
+        <div class="col-lg-8">
+
+            <div class="card shadow-lg border-0 rounded-4">
+                <div class="card-header bg-primary text-white d-flex justify-content-between align-items-center">
+                    <h4 class="mb-0">
+                        <i class="bi bi-pencil-square me-2"></i> Modifier le technicien
+                    </h4>
+                    <a href="{{ path('app_technicien_index') }}" class="btn btn-return btn-sm btn-custom">
+                        <i class="bi bi-arrow-left"></i> Retour à la liste
+                    </a>
+                </div>
+
+                <div class="card-body">
+                    {{ include('technicien/_form.html.twig', {'button_label': 'Mettre à jour', 'attr': {'class': 'form-control'}}) }}
+                </div>
+
+                <div class="card-footer bg-light d-flex justify-content-end gap-2">
+                    {{ include('technicien/_delete_form.html.twig', {'button_class': 'btn btn-danger btn-custom btn-sm'}) }}
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+{% endblock %}

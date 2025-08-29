@@ -1,0 +1,41 @@
+{% extends 'base-front.html.twig' %}
+
+{% block title %}Liste des utilisateurs{% endblock %}
+
+{% block body %}
+<h1>Liste des utilisateurs</h1>
+
+<div class="mb-3">
+    <a href="{{ path('user_create') }}" class="btn btn-primary">Ajouter un utilisateur</a>
+</div>
+
+<table class="table table-bordered table-striped">
+    <thead>
+        <tr>
+            <th>Nom d'utilisateur</th>
+            <th>Rôles</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for user in users %}
+            <tr> 
+                <td>{{ user.username }}</td>
+                <td>{{ user.roles|join(', ') }}</td>
+                <td>
+                    <a href="{{ path('user_edit', {id: user.id}) }}" class="btn btn-sm btn-warning">Modifier</a>
+                    <form method="post" action="{{ path('user_delete', {id: user.id}) }}" style="display:inline-block" onsubmit="return confirm('Supprimer cet utilisateur ?');">
+                        <input type="hidden" name="_token" value="{{ csrf_token('delete-user' ~ user.id) }}">
+                        <button class="btn btn-sm btn-danger" type="submit">Supprimer</button>
+                    </form>
+ 
+                    <a href="{{ path('app_technicien_new', {id: user.id}) }}" class="btn btn-sm btn-success">Ajouter Technicien</a>
+
+                </td>
+            </tr>
+        {% else %}
+            <tr><td colspan="4">Aucun utilisateur trouvé.</td></tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

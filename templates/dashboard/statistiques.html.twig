@@ -1,0 +1,206 @@
+{% extends 'statistique.html.twig' %}
+
+{% block body %}
+<div class="container my-5">
+
+    <!-- Ligne avec deux graphiques côte à côte -->
+    <div class="row">
+        <!-- Temps moyen de traitement -->
+        <div class="col-md-6 mb-5">
+            <h2 class="mb-4 text-center">Temps moyen de traitement</h2>
+            <div class="chart-wrapper" style="height: 400px;">
+                <canvas id="tempsMoyenChart"></canvas>
+            </div>
+        </div>
+
+        <!-- Tickets par statut -->
+        <div class="col-md-6 mb-5">
+            <h2 class="mb-4 text-center">Tickets par statut</h2>
+            <div class="chart-wrapper" style="height: 400px;">
+                <canvas id="ticketsStatutChart"></canvas>
+            </div>
+        </div>
+    </div>
+
+    <!-- Pannes par localisation -->
+    <div class="row">
+        <div class="col-12">
+            <h2 class="mb-4 text-center">Pannes par localisation</h2>
+            <div class="chart-wrapper" style="max-width: 700px; margin: auto; height: 400px;">
+                <canvas id="pannesLieuChart"></canvas>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+    // -------------------
+    // Temps moyen de traitement (Barres décorées)
+    // -------------------
+    const ctxTemps = document.getElementById('tempsMoyenChart').getContext('2d');
+    const heures = {{ heures|round(0) }};
+    const minutes = {{ minutes|round(0) }};
+
+    new Chart(ctxTemps, {
+        type: 'bar',
+        data: {
+            labels: ['Temps moyen de traitement'],
+            datasets: [
+                {
+                    label: 'Heures',
+                    data: [heures],
+                    backgroundColor: 'rgba(54, 162, 235, 0.7)',
+                    borderColor: 'rgba(54, 162, 235, 1)',
+                    borderWidth: 2,
+                    borderRadius: 5,
+                    hoverBackgroundColor: 'rgba(54, 162, 235, 0.9)',
+                    hoverBorderColor: 'rgba(54, 162, 235, 1)'
+                },
+                {
+                    label: 'Minutes',
+                    data: [minutes],
+                    backgroundColor: 'rgba(255, 99, 132, 0.7)',
+                    borderColor: 'rgba(255, 99, 132, 1)',
+                    borderWidth: 2,
+                    borderRadius: 5,
+                    hoverBackgroundColor: 'rgba(255, 99, 132, 0.9)',
+                    hoverBorderColor: 'rgba(255, 99, 132, 1)'
+                }
+            ]
+        },
+        options: {
+            responsive: true,
+            scales: {
+                y: {
+                    beginAtZero: true,
+                    title: { display: true, text: 'Temps', font: { size: 14, weight: 'bold' } },
+                    grid: { color: 'rgba(200,200,200,0.3)', borderDash: [5, 5] }
+                }
+            },
+            plugins: {
+                legend: { position: 'top' },
+                tooltip: {
+                    callbacks: {
+                        label: function(context) {
+                            return context.dataset.label + ': ' + context.parsed.y + (context.dataset.label === 'Heures' ? ' h' : ' min');
+                        }
+                    }
+                },
+                title: {
+                    display: true,
+                    text: 'Temps moyen de traitement',
+                    font: { size: 16, weight: 'bold' },
+                    padding: { top: 10, bottom: 20 }
+                }
+            }
+        }
+    });
+
+    // -------------------
+    // Tickets par statut (Pie Chart décoré)
+    // -------------------
+    const ctxStatut = document.getElementById('ticketsStatutChart').getContext('2d');
+    const labelsStatut = {{ labelsStatut|json_encode|raw }};
+    const dataStatut = {{ dataStatut|json_encode|raw }};
+    const backgroundStatut = [
+        'rgba(255, 99, 132, 0.7)',
+        'rgba(54, 162, 235, 0.7)',
+        'rgba(255, 206, 86, 0.7)',
+        'rgba(75, 192, 192, 0.7)',
+        'rgba(153, 102, 255, 0.7)'
+    ];
+    const borderStatut = backgroundStatut.map(c => c.replace('0.7', '1'));
+
+    new Chart(ctxStatut, {
+        type: 'pie',
+        data: {
+            labels: labelsStatut,
+            datasets: [{
+                label: 'Nombre de tickets',
+                data: dataStatut,
+                backgroundColor: backgroundStatut,
+                borderColor: borderStatut,
+                borderWidth: 2,
+                hoverOffset: 10
+            }]
+        },
+        options: {
+            responsive: true,
+            plugins: {
+                legend: { position: 'top' },
+                tooltip: {
+                    callbacks: {
+                        label: function(context) {
+                            return context.label + ': ' + context.parsed + ' tickets';
+                        }
+                    }
+                },
+                title: {
+                    display: true,
+                    text: 'Répartition des tickets par statut',
+                    font: { size: 16, weight: 'bold' },
+                    padding: { top: 10, bottom: 20 }
+                }
+            }
+        }
+    });
+
+    // -------------------
+    // Pannes par localisation (Histogramme décoré)
+    // -------------------
+    const ctxLieu = document.getElementById('pannesLieuChart').getContext('2d');
+    const labelsLieu = {{ labelsLieu|json_encode|raw }};
+    const dataLieu = {{ dataLieu|json_encode|raw }};
+    const backgroundColors = dataLieu.map((_, i) => `rgba(${75 + i*15}, ${192 - i*10}, ${192 + i*5}, 0.7)`);
+    const borderColors = dataLieu.map((_, i) => `rgba(${75 + i*15}, ${192 - i*10}, ${192 + i*5}, 1)`);
+
+    new Chart(ctxLieu, {
+        type: 'bar',
+        data: {
+            labels: labelsLieu,
+            datasets: [{
+                label: 'Nombre de pannes',
+                data: dataLieu,
+                backgroundColor: backgroundColors,
+                borderColor: borderColors,
+                borderWidth: 2,
+                borderRadius: 5,
+                hoverBackgroundColor: 'rgba(255, 159, 64, 0.8)',
+                hoverBorderColor: 'rgba(255, 159, 64, 1)'
+            }]
+        },
+        options: {
+            responsive: true,
+            scales: {
+                y: { 
+                    beginAtZero: true, 
+                    title: { display: true, text: 'Nombre de pannes', font: { size: 14, weight: 'bold' } },
+                    grid: { color: 'rgba(200,200,200,0.3)', borderDash: [5, 5] }
+                },
+                x: { 
+                    title: { display: true, text: 'Localisation', font: { size: 14, weight: 'bold' } },
+                    ticks: { maxRotation: 45, minRotation: 30 }
+                }
+            },
+            plugins: {
+                legend: { display: false },
+                tooltip: {
+                    callbacks: {
+                        label: function(context) {
+                            return context.dataset.label + ': ' + context.parsed.y;
+                        }
+                    }
+                },
+                title: {
+                    display: true,
+                    text: 'Histogramme des pannes par localisation',
+                    font: { size: 16, weight: 'bold' },
+                    padding: { top: 10, bottom: 30 }
+                }
+            }
+        }
+    });
+</script>
+{% endblock %}
